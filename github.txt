@@ -1,0 +1,117 @@
+https://github.com/brylka/zse_2p_2026_27/blob/master/02-typy-danych-cwiczenia.md
+
+Yehor Krasnikov 2P
+
+1
+1.1:
+Typ    Przykł. Wart.    dozw. op.                            	Rozm. w Pam.
+bool   true/false       AND/OR/NOT   			1 bajt
+int32  15                  +/-/÷/*			4 bajty
+char    z                   Porównania, przypisania		1 lub 2 bajty (UTF)
+
+
+1.2:
+a static  		tylko int
+b dynamic 	automatycznie do str
+c dynamic	automatycznie do double
+d static		tylko int
+
+1.3:
+Wyrażenie	Python		JS
+"5" + 3		błąd		"53"
+"5" * 2		"55"		10
+"10" - 5		błąd		5
+True + 1		2		2
+
+1.4:
+a)  (int) 7.99            	= 7
+b)  (int) -7.99           	= -7
+c)  (double) 5            	= 5.0
+d)  (int) 3.5 + (int) 3.5 	= 6
+e)  (int)(3.5 + 3.5)      	= 7
+w d zmieniamy typ dodawanych liczb, a w e zmieniamy typ sumy tych liczb
+
+
+
+1.5:
+>>> print(type(5), type(5.0), type("5"), type(True))
+<class 'int'> <class 'float'> <class 'str'> <class 'bool'>
+>>> print(int("42") + 8)
+50
+>>> print(int("42abc"))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: invalid literal for int() with base 10: '42abc'
+
+ nie da się przetworzyć string "42abc" do int
+========================================
+2.1:
+Liczba bitów	Liczba wartości	Zakres bez znaku	Zakres ze znakiem
+4		16		0-15		-8 - 7
+8		256		0-255		-128 - 127
+16		65536		0-65535		-32768 - 32767
+
+2.2:
+a)  0000 1111  =15
+b)  1000 0000  = 128
+c)  1111 1111  = 255
+
+A teraz te same bajty odczytane jako liczby ze znakiem w kodzie U2:
+
+a)  0000 1111  = 15
+b)  1000 0000  = -128
+c)  1111 1111  = -1
+
+2.3:
+
+120 → -126 → -116 → -106
+
+po jednym kroku
+
+2.4:
+a)  17 / 5    (liczby całkowite)  = 3
+b)  17 % 5                        = 2
+c)  -17 / 5   (liczby całkowite)  = -3
+d)  Ile stron po 20 rekordów potrzeba na 143 rekordy?  = 8
+
+liczba stron = (n+k-1)/k
+
+2.5:
+Dana	Typ	Uzasadnienie
+Wiek człowieka			byte
+Rok kalendarzowy			short
+Liczba mieszkańców Polski		int
+Liczba mieszkańców Ziemi		Long
+Liczba bajtów pliku wideo		Long
+Temperatura w °C (całkowita)	int	
+
+2.6:
+>>> import numpy as np
+>>> x = np.int8(127)
+>>> print(x + np.int8(1))
+<stdin>:1: RuntimeWarning: overflow encountered in scalar add
+-128
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
