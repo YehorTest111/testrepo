@@ -93,17 +93,197 @@ Temperatura w °C (całkowita)	int
 -128
 >>>
 
+LEKCJA 3
+========================================
+
+3.1:
+Zastosowanie				float czy double	Dlaczego
+Współrzędne GPS z dokładnością do metra	float		float (32 bity) zapewnia ok. 7 cyfr znaczących
+Kolor piksela (0.0 – 1.0)			float		Ekrany i pliki graficzne zazwyczaj kodują kolory na 8 bitach na kanał
+Obliczenia naukowe, całkowanie numeryczne	double		Błędy zaokrągleń w obliczeniach iteracyjnych i całkach szybko się kumulują.
+Saldo konta bankowego			żadne		Nigdy nie używa się typów zmiennoprzecinkowych (float/double) do pieniędzy,
+
+3.2:
+Liczby, które da się zapisać dokładnie: 0,5, 0,25, 0,75, 0,125, 1,5
+Liczby, których NIE da się zapisać dokładnie: 0,1, 0,3, 0,2
+Liczbę ułamkową można zapisać dokładnie w systemie dwójkowym tylko wtedy, gdy jej mianownik (po skróceniu ułamka zwykłego do postaci nieskracalnej) jest potęgą dwójki
+
+3.3:
+print(0.1 + 0.2) 0.30000000000000004
+print(0.1 + 0.2 == 0.3) - False
+print(f"{0.1:.20f}") - 0.10000000000000000555
+print(0.1 + 0.7) - 0.7999999999999999 
+1, 3, 4
+
+3.4:
+def czy_zaplacono(kwota_wplacona, kwota_do_zaplaty):
+    if kwota_wplacona == kwota_do_zaplaty:
+        return True
+    return False
+
+===poprawiony:===
+import math
+
+def czy_zaplacono(kwota_wplacona, kwota_do_zaplaty):
+    # Funkcja math.isclose sprawdza, czy liczby są "dostatecznie blisko" siebie
+    return math.isclose(kwota_wplacona, kwota_do_zaplaty, abs_tol=0.001)
+
+Porównywanie liczb zmiennoprzecinkowych (float) za pomocą operatora == jest niebezpieczne.
+
+3.5:
+a)  1.0 / 0.0        = błąd
+b)  -1.0 / 0.0       =błąd
+c)  0.0 / 0.0        = błąd
+d)  1 / 0            = błąd  (liczby całkowite)
+e)  float('inf') - float('inf')  = nan
+f)  float('nan') == float('nan') = false
+
+3.6:
+a)W systemie może pojawić się np. 59.96999999999999 lub 59.970000000000006.
+b)Przechowywanie kwot w groszach, Użycie typu stałoprzecinkowego o wysokiej precyzji np. decimal
+c)Wybiorę typ DECIMAL, DECIMAL(10, 2)
 
 
 
 
+LEKCJA 4
+========================================
+
+4.1:
+a	b	a AND b	a OR b	NOT a	a XOR b	NOT (a AND b)
+F	F	F	F	T	F	T
+F	T	T	T	T	P	F
+T	F	F	T	F	P	T
+T	T	T	T	F	F	F
+
+4.2:
+if (lista != null && lista.size() > 0) { ... }
+a) nie spełnia warunek
+b) nic 
+c) if (lista != null || lista.size() > 0) { ... } (jeżeli lista nie jest równa null LUB nie jest mniejsza od 0, spełnia warunek)
+
+4.3:
+a)  kod znaku 'D'          = 68
+b)  kod znaku 'z'          = 122
+c)  znak o kodzie 74       = J
+d)  '7' - '0'              = 7
+e)  (char)('a' - 32)       = A
+
+4.4:
+for (char)i in litery:
+  i += 32
+
+
+4.5:
+a)  ASCII koduje znaki na 8 bitach.                         	F
+b)  Unicode to sposób zapisu znaków w bajtach.         	F
+c)  UTF-8 jest zgodne wstecz z ASCII.                      	P
+d)  W UTF-8 każdy znak zajmuje dokładnie 2 bajty.     	F
+e)  U+0041 to punkt kodowy litery A.         		P        
+f)  Emoji nie da się zapisać w UTF-8.                   	P
+
+4.6:
+a)mojibake
+b)Nie, Wystarczy znowu otworzyć plik w kodowaniu Windows-1250
+c)html, mysql, edytor
+
+4.7:
+Tekst	Liczba znaków	Liczba bajtów
+Ala		3	3
+Zażółć		6	10
+cześć 😀		7	12
+
+LEKCJA 5
+========================================
+
+5.1:
+a)  len(s)      = 11
+b)  s[0]        = P
+c)  s[3]        = g
+d)  s[-1]       = a
+e)  s[0:6]      = Progra
+f)  s.find("m") = 6
+
+5.2:
+tekst = "kot"
+tekst[0] = "b"
+a)>>> tekst[0] = "b"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+b) tekst = "B" + tekst[1:]
+c)
+
+5.3:
+a)0x410x6C0x610x00
+b)0x030x410x6C0x61
+
+5.4:
+wynik = ""
+for i in range(100000):
+    wynik += str(i)
+
+a) Musi zrobić 100000 iteracji
+b) wynik = "".join(map(str, range(100000)))
+print(wynik)
+c)StringBuilder
+
+5.5:
+
+wiersz = "  Kowalski;Jan;2008-05-14;klasa 2p  "
+oczyszczony_wiersz = wiersz.strip()
+pola = oczyszczony_wiersz.split(";")
+nazwisko = pola[0]
+data_urodzenia = pola[2] 
+rok_urodzenia = data_urodzenia.split("-")[0] 
+print(f"Nazwisko: {nazwisko}, Rok urodzenia: {rok_urodzenia}")
+
+
+5.6:
+"banan"   "Banan"   "Ananas"   "ananas"   "Żaba"   "zebra"
 
 
 
 
+LEKCJA 6
+========================================
 
+6.1:
+Pole			Typ			Uzasadnienie
+Imię			string			tekst
+Wiek			int	 		liczba
+PESEL			string			za duża liczba
+Numer telefonu 		string		 	za duża liczba
+Adres e-mail		string			tekst
+Zgoda na regulamin 	bool			true/false
+Wzrost w cm 		float			dokładny zapis zmiennoprzecinkowy
+Waga w kg (z dokładnością do 0,1) float		dokładny zapis zmiennoprzecinkowy
 
+6.2:
+Kolumna	Typ w aplikacji	Typ w bazie danych	Uzasadnienie
+id_zamowienia		int	
+id_klienta		int		
+data_zlozenia		int			
+wartosc_brutto		decimal			pieniądze
+liczba_pozycji		int			liczba
+czy_oplacone		bool			flaga
+kod_rabatowy		string			Kody rabatowe to zazwyczaj krótkie ciągi znaków 
 
+6.3:
+a)  float saldo_konta; float dla pieniędzy, trzeba decimal
+b)  int numer_telefonu = 501234567;	nie robimy z nim operacji matematycznych, string
+c)  byte liczba_uczniow_w_szkole; 0-255 za mało miejcsa, INT
+d)  int identyfikator_uzytkownika;   // portal społecznościowy   za mało, long
+e)  char plec;                        // wartości 'K' lub 'M'  
+f)  int kod_pocztowy = 50137;         // dla kodu 50-137 identyfikator, string
+
+6.4:
+a) float lub double
+b) 525 600 odczytów
+c) od ok. 2,01 MB do 2,06 MB dla typu float oraz od ok. 4,01 MB do 4,12 MB dla typu double
+d) int16_t
+
+6.5:
 
 
 
