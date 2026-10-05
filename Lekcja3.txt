@@ -1,0 +1,426 @@
+1p Yehor K.
+
+1.1:
+Dla tablicy int tab[8] odpowiedz:
+a)  indeks pierwszego elementu       = 0
+b)  indeks ostatniego elementu       = 7
+c)  liczba elementów                 = 8
+d)  poprawny warunek pętli po całej tablicy:  for (i = 0; i < 8; i++)
+e)  co się stanie przy odwołaniu tab[8] w Javie?  w C? java - błąd, c - poza tablicą
+
+1.2:
+Element	Adres
+tab[0]	2000
+tab[1]	2004
+tab[3]	2012
+tab[5]	2020
+adres(tab[i]) = 2000 + i · 4
+
+1.3:
+a) def srednia(tab):
+    suma = 0
+    for x in tab:
+        suma += x
+    return suma / len(tab)
+
+b) def indeks_min(tab):
+    indeks = 0
+
+    for i in range(1, len(tab)):
+        if tab[i] < tab[indeks]:
+            indeks = i
+
+    return indeks
+c) def ile_wiekszych(tab, wartosc):
+    licznik = 0
+
+    for x in tab:
+        if x > wartosc:
+            licznik += 1
+
+    return licznik
+
+1.4:
+a)tablice indeksujemy od 0 więc pętla powinna zaczynać się od 0 i kończyć na n - 1
+for (i = 0; i < n; i++)
+    suma += tab[i];
+b)maks = 0 nie zadziała poprawnie gdy wszystkie liczby są ujemne
+int maks = tab[0];
+
+for (i = 1; i < n; i++)
+    if (tab[i] > maks)
+        maks = tab[i];
+c)dla ostatniego elementu tab[i+1] oznacza tab[n], czyli wyjście poza tablicę
+for (i = 0; i < n - 1; i++)
+    tab[i] = tab[i + 1];
+
+1.5:
+a)  m[0][0] = 1     c)  m[2][3] = 12
+b)  m[1][2] = 7      d)  m[2][0] = 9
+
+e)for (int i = 0; i < 3; i++) {
+    int suma = 0;
+
+    for (int j = 0; j < 4; j++)
+        suma += m[i][j];
+
+    cout << suma << endl;
+}
+
+f) int suma = 0;
+
+for (int i = 0; i < n; i++)
+    suma += m[i][i];
+
+1.6:
+a)7, 8, 9, 1, 2, 3
+b)7, 1, 8, 2, 9, 3
+c)C → układ wierszami 
+Fortran → układ kolumnami 
+
+1.7:
+for w in range(8):
+    linia = ""
+    for k in range(8):
+        if (w + k) % 2 == 0:
+            linia += "#"
+        else:
+            linia += "."
+    print(linia)
+
+2.1:
+Po dodaniu elementu nr	Rozmiar	Pojemność	Czy nastąpiło przepisanie?
+1			1	2		nie
+2			2	2		nie
+3			3	4		tak
+5			5	8		tak
+9			9	16		tak
+
+2.2:
+Język	Typ tablicy dynamicznej	Dodanie na koniec	Odczyt rozmiaru
+Python	list			append			len
+Java	ArrayList		add			size
+C++	vector			push_back		size
+C#	List<T>			Add			Count
+
+2.3:
+Dane						Struktura	Uzasadnienie
+Oceny ucznia w kolejności wystawiania		lista		kolejność
+Liczba mieszkańców według nazwy miasta		słownik		po nazwie
+Kolejka zgłoszeń do rozpatrzenia		kolejka		kolejność
+Ustawienia programu (nazwa opcji i wartość)	słownik		słowo klucz
+Lista zakupów do odhaczania			lista		elementy po kolei
+Liczba wystąpień każdego słowa w tekście	słownik		słowo klucz
+
+2.4:
+a) magazyn["gwozdzie"] = 200
+b) magazyn["srubki"] += 30
+c) "wkrety" in magazyn
+d) del magazyn["podkladki"]
+e) for k, v in magazyn.items():
+    if v < 100:
+        print(k, v)
+f) sum(magazyn.values())
+
+2.5:
+a) tak – numer PESEL jest niezmienny i jednoznaczny
+b) nie – dwie osoby mogą mieć to samo imię
+c) nie – lista jest zmienna, więc nie nadaje się na klucz
+d) tak – adres e-mail powinien być unikalny i niezmienny
+e) tak – data i godzina jednoznacznie identyfikują pomiar
+f) nie – zmiana pól obiektu zmienia jego skrót, wartość staje się nieosiągalna
+
+2.6:
+zdanie = "ala ma kota a kot ma ale"
+licznik = {}
+
+for slowo in zdanie.lower().split():
+    licznik[slowo] = licznik.get(slowo, 0) + 1
+
+for slowo, ile in licznik.items():
+    print(slowo, ile)
+
+Lista byłaby gorsza, bo przy każdym nowym słowie trzeba przeszukiwać wszystkie
+dotychczasowe – koszt rósłby wraz z długością tekstu, a w słowniku sprawdzenie
+klucza ma stały koszt.
+
+3.1:
+Pole			Typ		Uzasadnienie
+tytul			string		tekst o zmiennej długości
+autor			string		tekst o zmiennej długości
+nr_inwentarzowy		string		bywa z literami, zera wiodące
+rok_wydania		int16		liczba całkowita z małego zakresu
+czy_wypozyczona		bool		dwie wartości: tak / nie
+
+3.2:
+a) 1) usunięcie lub przestawienie pracownika wymaga zmiany we wszystkich trzech
+   tablicach – łatwo o rozjechanie danych
+   2) dodanie nowego pola oznacza kolejną tablicę i poprawienie całego programu
+
+b) struct Pracownik {
+    char nazwisko[40];
+    int  wiek;
+    float pensja;
+};
+
+struct Pracownik firma[100];
+
+c) for (int i = 0; i < n; i++)
+    if (firma[i].pensja > 5000)
+        printf("%s\n", firma[i].nazwisko);
+
+3.3:
+a) 8	b) 8	c) 8	d) 8
+
+W podpunkcie b) wynik nie wynosi 5, bo kompilator wstawia 3 bajty wypełnienia
+(padding), aby pole int zaczynało się pod adresem podzielnym przez 4.
+
+3.4:
+struct Adres {
+    char ulica[50];
+    char miasto[30];
+    char kod[7];
+};
+
+struct Data {
+    int dzien;
+    int miesiac;
+    int rok;
+};
+
+struct Klient {
+    char nazwa[60];
+    struct Adres adres;
+};
+
+struct Zamowienie {
+    int numer;
+    struct Klient klient;
+    struct Data data;
+    double wartosc;
+};
+
+odwołanie do miasta klienta:  z.klient.adres.miasto
+
+3.5:
+a) rozmiar struktury = suma rozmiarów pól + wypełnienie,
+   rozmiar unii = rozmiar największego pola
+b) jedno – tylko jedno pole ma w danej chwili sensowną wartość
+c) pole rozpoznawcze mówi, które pole unii zostało zapisane,
+   bez niego program nie umie poprawnie odczytać zawartości
+d) oszczędność pamięci w urządzeniach wbudowanych / odczyt tych samych bajtów
+   na kilka sposobów, np. przy obsłudze protokołów sieciowych
+
+3.6:
+enum Rodzaj { CALKOWITY, RZECZYWISTY, BLAD };
+
+struct Pomiar {
+    enum Rodzaj rodzaj;
+    union {
+        int    calkowity;
+        double rzeczywisty;
+        char   komunikat[40];
+    } wartosc;
+};
+
+if (p.rodzaj == CALKOWITY)
+    printf("%d", p.wartosc.calkowity);
+else if (p.rodzaj == RZECZYWISTY)
+    printf("%f", p.wartosc.rzeczywisty);
+else
+    printf("%s", p.wartosc.komunikat);
+
+4.1:
+Zadanie					Tryb
+Wczytanie listy uczniów z pliku		r
+Zapis raportu od nowa, kasując poprzedni	w
+Dopisanie wpisu do dziennika zdarzeń	a
+Odczyt zdjęcia w formacie JPG		rb
+
+4.2:
+a) T – arkusz czyta tekst CSV/z odstępami
+b) B – stan gry to dane strukturalne, zapis binarny zajmuje mniej miejsca
+c) T – plik konfiguracyjny edytuje się ręcznie w edytorze tekstowym
+d) B – dźwięk to strumień bajtów o stałej postaci
+e) T – tekst jest czytelny i przenośny między systemami
+
+4.3:
+oceny = [5, 4, 3, 5, 4]
+
+with open("oceny.txt", "w") as f:
+    for o in oceny:
+        f.write(str(o) + "\n")
+
+with open("oceny.txt", "r") as f:
+    wczytane = [int(x) for x in f if x.strip()]
+
+srednia = sum(wczytane) / len(wczytane)
+
+with open("oceny.txt", "a") as f:	# tryb dopisywania, nie zapisu
+    f.write("srednia: " + str(round(srednia, 2)) + "\n")
+
+4.4:
+a) 0	b) 320	c) pozycja = i · 64	d) 20480 / 64 = 320 rekordów
+
+e) linie mają różną długość, więc nie da się obliczyć pozycji n-tej linii
+   bez przeczytania wszystkich poprzednich
+
+4.5:
+a = 15	b = 25	w wskazuje na zmienną b
+
+4.6:
+a) S	b) H	c) S	d) H	e) H
+
+4.7:
+a) wskaźnik wiszący – pamięć została zwolniona, a z niej korzystamy;
+   po free przypisać wskaźnikowi NULL
+b) wyciek pamięci – w każdym obrocie rezerwujemy pamięć i nigdy jej nie
+   zwalniamy; dodać free(t)
+c) wskaźnik niezainicjowany – wskazuje przypadkowy adres;
+   trzeba najpierw przypisać mu adres zmiennej lub pamięć z malloc
+
+5.1:
+Operacja	Zawartość (od dna)	Zwrócono
+push(3)		3			-
+push(7)		3, 7			-
+push(1)		3, 7, 1			-
+pop()		3, 7			1
+push(9)		3, 7, 9			-
+pop()		3, 7			9
+pop()		3			7
+push(4)		3, 4			-
+
+Końcowa zawartość stosu (od dna): 3, 4
+
+5.2:
+enqueue(3)	3
+enqueue(7)	3, 7
+enqueue(1)	3, 7, 1
+dequeue()	7, 1		(zwrócono 3)
+enqueue(9)	7, 1, 9
+dequeue()	1, 9		(zwrócono 7)
+
+Końcowa zawartość kolejki (od początku): 1, 9
+
+5.3:
+Zadanie					Struktura		Uzasadnienie
+Cofanie zmian w edytorze tekstu		stos		LIFO – cofamy ostatnią zmianę
+Obsługa zgłoszeń w kolejności wpływania	kolejka		FIFO – kolejność wpływu
+Sprawdzanie poprawności nawiasów	stos		Ostatni otwarty = pierwszy zamykany
+Drukowanie dokumentów			kolejka		Kolejność wysyłania na drukarkę
+Historia odwiedzonych stron		stos		"Wstecz" wraca do ostatniej strony
+Bufor danych sieciowych			kolejka		Dane obsługiwane w kolejności przyjścia
+
+5.4:
+a) tablica / wektor – dominuje odczyt po numerze, dostęp O(1)
+b) lista wiązana – częste usuwanie ze środka, O(1) bez przesuwania
+c) wektor – dopisywanie na końcu ma stały koszt zamortyzowany
+d) lista wiązana – wstawianie w dowolne miejsce
+
+5.5:
+Operacja			Tablica / wektor	Lista wiązana
+Odczyt elementu nr i		O(1)			O(n)
+Wstawienie na początek		O(n)			O(1)
+Usunięcie znanego elementu	O(n)			O(1)
+Wyszukiwanie wartości		O(n)			O(n)
+
+5.6:
+a) iterator to obiekt dający jednolity sposób przeglądania kolekcji;
+   udostępnia operacje: "czy jest następny element" oraz "pobierz następny"
+b) bo każda kolekcja dostarcza własny iterator, a pętla for each korzysta
+   tylko z tych dwóch operacji
+c) iterator zostaje unieważniony – program zgłasza błąd albo pomija elementy
+d) zbudować nową listę zawierającą tylko elementy do zachowania
+   albo iterować po kopii listy
+
+5.7:
+def sprawdz(wyrazenie):
+    pary = {")": "(", "]": "[", "}": "{"}
+    stos = []
+
+    for znak in wyrazenie:
+        if znak in "([{":
+            stos.append(znak)
+        elif znak in pary:
+            if not stos or stos.pop() != pary[znak]:
+                return False
+
+    return len(stos) == 0
+
+print(sprawdz("( a + [ b * c ] )"))	# True
+print(sprawdz("{ ( a + b ]  }"))	# False
+print(sprawdz("( ( a + b )"))		# False
+
+6.1:
+Dane						Struktura		Uzasadnienie	Do pliku
+Rekord książki (tytuł, autor, nr inw.,		rekord		stały zestaw pól	tak
+rok, czy wypożyczona)
+Zbiór książek					słownik		najczęstsze		tak
+						(klucz = nr inw.)	wyszukiwanie po nr
+Rekord czytelnika (imię, nazwisko,		rekord		stały zestaw pól	tak
+klasa, nr karty)
+Wypożyczenia: nr karty -> lista nr książek	słownik		szybkie szukanie	tak
+						po numerze karty
+Lista książek wypożyczonych przez		lista		kolejność, dopisanie	nie
+czytelnika						na końcu
+Historia wypożyczeń				plik tekstowy	ma przetrwać		tak
+							zamknięcie programu
+						(tryb "a")
+
+6.2:
+Produkt	rekord: nazwa (string), cena (decimal), dostepna_liczba (int)
+Katalog produktów	słownik, klucz = kod produktu (wyszukiwanie po kodzie)
+Pozycja koszyka	rekord: produkt + liczba sztuk
+Koszyk	wektor/lista pozycji – dodawanie i usuwanie w dowolnym momencie,
+	 przy każdym wyświetleniu sumujemy wartości pozycji
+
+Cena: typ dziesiętny (decimal) albo liczba całkowita groszy, bo liczba
+zmiennoprzecinkowa daje błędy zaokrągleń w rozliczeniach.
+
+6.3:
+a) tablice równoległe – zamienić na tablicę rekordów
+b) przeszukiwanie listy 50 000 elementów ma koszt liniowy – użyć słownika
+   z kluczem będącym loginem
+c) cofanie wymaga dostępu do ostatniej operacji, więc właściwy jest stos,
+   nie kolejka FIFO
+d) kwoty na liczbach zmiennoprzecinkowych – użyć typu dziesiętnego
+   lub groszy jako liczb całkowitych
+e) tablica statyczna na 100 pozycji – koszyk ma zmienną liczbę pozycji,
+   użyć tablicy dynamicznej (wektora)
+
+6.4:
+a) tablica 10 x 10 wartości całkowitych lub znakowych:
+   0 – puste, 1 – statek, 2 – trafienie, 3 – pudło
+b) rekord Statek: rozmiar, lista pól, liczba trafień; statki w wektorze
+c) statek jest zatopiony, gdy liczba trafień == rozmiar statku
+d) historia strzałów jako lista lub wektor par (wiersz, kolumna) –
+   kolejność ma znaczenie, dopisujemy wyłącznie na końcu
+
+6.5:
+System: wypożyczalnia sprzętu sportowego
+
+1) Dane i typy proste:
+   nazwa_sprzetu – string
+   kod – string (klucz)
+   cena_za_dzien – decimal / int (grosze)
+   liczba_sztuk – int
+   stan – bool (czy dostępny)
+   imię, nazwisko klienta – string
+   numer_wypozyczenia – int
+   data_wypozyczenia – data (dzień, miesiąc, rok)
+
+2) Rekordy: Sprzet, Klient, Wypozyczenie (numer, klient, lista pozycji,
+   data, czy_zwrócone)
+
+3) Struktury:
+   katalog sprzętu – słownik (klucz = kod, najczęstsze wyszukiwanie)
+   lista aktualnych wypożyczeń – wektor (dopisywanie na końcu)
+   historia wypożyczeń – lista lub stos zapisywany do pliku
+
+4) Do pliku trafiają: katalog sprzętu, klienci i historia wypożyczeń
+   (zapis w trybie dopisywania, żeby dane przetrwały zamknięcie programu);
+   bieżący stan sesji może zostać tylko w pamięci.
+
+
+
+
